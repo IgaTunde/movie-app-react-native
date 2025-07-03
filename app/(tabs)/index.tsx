@@ -1,3 +1,4 @@
+import MovieCard from "@/components/MovieCard";
 import SearchBar from "@/components/SearchBar";
 import { icons } from "@/constants/icons";
 import { images } from "@/constants/images";
@@ -6,6 +7,7 @@ import useFetch from "@/services/useFetch";
 import { useRouter } from "expo-router";
 import {
   ActivityIndicator,
+  FlatList,
   Image,
   ScrollView,
   StatusBar,
@@ -25,6 +27,10 @@ export default function Index() {
       query: "",
     })
   );
+
+  console.log("Fetched Movies:", movies);
+  console.log("Movies Loading:", moviesLoading);
+  console.log("Movies Error:", moviesError);
 
   return (
     <View className=" flex-1 bg-primary">
@@ -57,6 +63,24 @@ export default function Index() {
               <Text className="text-white text-lg mt-5 mb-3 font-bold">
                 Latest movies
               </Text>
+
+              <FlatList
+                data={movies || []}
+                keyExtractor={(item) => item.id?.toString()}
+                renderItem={({ item }) => (
+                  // <Text className="text-white text-sm">{item.title}</Text>
+                  <MovieCard {...item} />
+                )}
+                scrollEnabled={false}
+                numColumns={3}
+                columnWrapperStyle={{
+                  justifyContent: "flex-start",
+                  gap: 20,
+                  paddingRight: 5,
+                  marginBottom: 10,
+                }}
+                className="pb-32 mt2"
+              />
             </>
           </View>
         )}
