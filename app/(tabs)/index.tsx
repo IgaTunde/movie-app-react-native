@@ -28,10 +28,6 @@ export default function Index() {
     })
   );
 
-  console.log("Fetched Movies:", movies);
-  console.log("Movies Loading:", moviesLoading);
-  console.log("Movies Error:", moviesError);
-
   return (
     <View className=" flex-1 bg-primary">
       <StatusBar barStyle="light-content" />
